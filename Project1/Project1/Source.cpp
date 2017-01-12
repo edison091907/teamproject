@@ -96,33 +96,6 @@ void try_move_block(int x, int y, int d)       //嘗試移動
 	show_block("▓");
 }
 
-int remove_lines()
-{
-	int x, y, i, j, line = 0;
-	for (y = 1; y<H - 1; y++)
-	{
-		for (x = 1; x<W - 1; x++)
-			if (!room[x][y])
-			{
-				break;										
-			}
-		if (x == W - 1)								//判斷是否有滿格
-		{
-			line++;									//消除行數+1
-			for (i = 1; i<W - 1; i++)
-			{
-				room[i][0] = 0;
-			}
-			for (i = y; i>1; i--)
-			{
-				for (j = 1; j<W - 1; j++)
-					room[j][i] = room[j][i - 1];	//往下一行覆蓋
-			}
-			show_room();
-		}
-	}
-	return line;
-}
 
 void move_block()
 {
@@ -141,11 +114,7 @@ void move_block()
 			{
 				room[X + x - ox][Y + y - oy] = B + 7;         
 			}
-	int n = remove_lines();								//消除行數
-	level = (score += (1 + n*n) * 4) / 200;
-	delay_time = 10 - level;
-	if (level > 10) over(ox + 4, H / 2, "Y o u    W i n");		//計算遊戲等級 如果等級大於10則遊戲勝利 遊戲會依等級增加而增加速度
-
+	
 	show_next_block("  ");
 	B = N; X = ox + W / 2 - 1; Y = 0;
 	N = rand() % nBlock;
@@ -225,9 +194,6 @@ int main()
 		}
 		move_block();							//移動方塊
 		set_color(14);
-		gotoxy(ox + W * 2 + 8, 10);            //游標移動到Level顯示位置
-		cout << "Level: " << level + 1;
-		gotoxy(ox + W * 2 + 8, 12);            //游標移動到Score顯示位置
-		cout << "Score: " << score;
+
 	}
 }
