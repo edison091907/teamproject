@@ -40,7 +40,7 @@ void over(int x, int y, char* s) { draw(x, y, s); getch(); exit(1); }
 
 bool bMove_block(int bx, int by, int d)         //傳入新位置與旋轉方向
 {                                               //檢驗方塊能否變動   
-	for (int p = 0x8000, x, y = 0; y<4; y++)	
+	for (int p = 0x8000, x, y = 0; y<4; y++)
 		for (x = 0; x<4; x++, p >>= 1)
 			if ((block[B][d] & p) && room[bx + x - ox][by + y - oy])	//將圖形與遊戲畫面and起來為1 表示無法轉動或左右移動，
 			{															//x等於0到3 圖形都是由4個方塊組成
@@ -96,33 +96,7 @@ void try_move_block(int x, int y, int d)       //嘗試移動
 	show_block("▓");
 }
 
-int remove_lines()
-{
-	int x, y, i, j, line = 0;
-	for (y = 1; y<H - 1; y++)
-	{
-		for (x = 1; x<W - 1; x++)
-			if (!room[x][y])
-			{
-				break;										
-			}
-		if (x == W - 1)								//判斷是否有滿格
-		{
-			line++;									//消除行數+1
-			for (i = 1; i<W - 1; i++)
-			{
-				room[i][0] = 0;
-			}
-			for (i = y; i>1; i--)
-			{
-				for (j = 1; j<W - 1; j++)
-					room[j][i] = room[j][i - 1];	//往下一行覆蓋
-			}
-			show_room();
-		}
-	}
-	return line;
-}
+
 
 void move_block()
 {
@@ -139,12 +113,8 @@ void move_block()
 		for (x = 0; x<4; x++, p >>= 1)
 			if (block[B][dir] & p)						//儲存前次方塊位址
 			{
-				room[X + x - ox][Y + y - oy] = B + 7;         
+				room[X + x - ox][Y + y - oy] = B + 7;
 			}
-	int n = remove_lines();								//消除行數
-	level = (score += (1 + n*n) * 4) / 200;
-	delay_time = 10 - level;
-	if (level > 10) over(ox + 4, H / 2, "Y o u    W i n");		//計算遊戲等級 如果等級大於10則遊戲勝利 遊戲會依等級增加而增加速度
 
 	show_next_block("  ");
 	B = N; X = ox + W / 2 - 1; Y = 0;
@@ -181,29 +151,6 @@ void init()                                     //初始配置
 	show_next_block("▓");                      //決定第一個落下的方塊
 }
 
-void key_control()                              //按鍵控制
-{
-	static DWORD count;
-	static INPUT_RECORD ir;
-	ReadConsoleInput(hIn, &ir, 1, &count);
-	if (!ir.Event.KeyEvent.bKeyDown)
-	{
-		return;
-	}
-	switch (ir.Event.KeyEvent.wVirtualKeyCode)
-	{
-	case VK_ESCAPE: bExit = true;
-		break;
-	case VK_DOWN: try_move_block(X, Y + 1, dir);		//讀取按鍵若為下 y座標+1					     y		
-		break;											//											x  (0,0)  (0,1)  右下為+
-	case VK_LEFT: try_move_block(X - 1, Y, dir);		//讀取按鍵若為左 x座標-1					   (1,0)  (1,1)
-		break;											//
-	case VK_RIGHT: try_move_block(X + 1, Y, dir);		//讀取按鍵若為右 x座標+1
-		break;											//
-	case VK_UP: try_move_block(X, Y, (dir + 1) & 3);	//讀取按鍵若為上 方塊轉向
-		break;
-	}
-}
 
 int main()
 {
@@ -215,19 +162,8 @@ int main()
 	init();										//建立初始畫面和第一個落下方塊
 	while (!bExit)                              //bExit=ture跳出,false繼續執行(初始為false)
 	{
-		for (i = 0; i<flexible_time; i++)		//此for迴圈內容為讀取鍵盤，迴圈為延長處理時間用
-		{                                                  
-			if (kbhit())						//掃描是否有按鍵盤
-			{
-				key_control();					//取得鍵盤按鍵，判斷按鍵執行動作
-			}
-			Sleep(delay_time);                  //延遲時間 單位ms
-		}
+		Sleep(100);                  //延遲時間 單位ms
 		move_block();							//移動方塊
 		set_color(14);
-		gotoxy(ox + W * 2 + 8, 10);            //游標移動到Level顯示位置
-		cout << "Level: " << level + 1;
-		gotoxy(ox + W * 2 + 8, 12);            //游標移動到Score顯示位置
-		cout << "Score: " << score;
 	}
 }
