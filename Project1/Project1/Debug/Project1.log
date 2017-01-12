@@ -1,10 +1,9 @@
 ﻿  Source.cpp
-c:\users\林煜書\desktop\game\project1\project1\source.cpp(39): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+c:\users\林煜書\desktop\game - 1\project1\project1\source.cpp(39): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\conio.h(452): note: 請參閱 'getch' 的宣告
-c:\users\林煜書\desktop\game\project1\project1\source.cpp(157): warning C4244: '引數': 將 'time_t' 轉換為 'unsigned int'，由於類型不同，可能導致資料遺失
-c:\users\林煜書\desktop\game\project1\project1\source.cpp(164): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+c:\users\林煜書\desktop\game - 1\project1\project1\source.cpp(80): warning C4244: '引數': 將 'time_t' 轉換為 'unsigned int'，由於類型不同，可能導致資料遺失
+c:\users\林煜書\desktop\game - 1\project1\project1\source.cpp(87): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\conio.h(452): note: 請參閱 'getch' 的宣告
-c:\users\林煜書\desktop\game\project1\project1\source.cpp(220): warning C4996: 'kbhit': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _kbhit. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\conio.h(458): note: 請參閱 'kbhit' 的宣告
-  Project1.vcxproj -> C:\Users\林煜書\Desktop\game\Project1\Debug\Project1.exe
-  Project1.vcxproj -> C:\Users\林煜書\Desktop\game\Project1\Debug\Project1.pdb (Partial PDB)
+c:\users\林煜書\desktop\game - 1\project1\project1\source.cpp(112): warning C4101: 'i': 未參考的區域變數
+  Project1.vcxproj -> C:\Users\林煜書\Desktop\game - 1\Project1\Debug\Project1.exe
+  Project1.vcxproj -> C:\Users\林煜書\Desktop\game - 1\Project1\Debug\Project1.pdb (Partial PDB)
